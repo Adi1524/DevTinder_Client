@@ -61,9 +61,9 @@ const EditProfile = () => {
   }, [user]);
 
   return (
-    <div className="flex mt-4 ">
-      <div className="flex w-full items-center justify-center ">
-        <div className="card card-dash bg-base-300 w-96 ">
+    <div className="md:flex  justify-between md:mx-[10vh] mt-4 ">
+      <div className="md:flex md:w-1/2 mx-4 mb-2    ">
+        <div className="card card-dash bg-base-300 w-auto md:w-96 ">
           <div className="card-body ">
             <h2 className="card-title  mx-auto">Profile</h2>
             <div className="space-y-4">
@@ -146,7 +146,7 @@ const EditProfile = () => {
           </div>
         </div>
       </div>
-      <div className="pointer-events-non">
+      <div className="pointer-events-none mx-4 ">
         <UserCard user={userDetails} />
       </div>
     </div>

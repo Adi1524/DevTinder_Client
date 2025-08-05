@@ -12,7 +12,7 @@ const feedSlice = createSlice({
     },
     removeSwipedCard: (state, action) => {
       const userId = action.payload;
-      return state?.filter((user = user._id) !== userId) || [];
+      return state?.filter((user) => user._id !== userId) || [];
     },
   },
 });

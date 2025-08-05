@@ -31,12 +31,34 @@ const Feed = () => {
 
   return (
     <div className="grid place-items-center">
-      {feed &&
+      {feed && feed.length !== 0 ? (
         feed.map((details, index) => (
-          <div key={index} style={{ gridRow: 1, gridColumn: 1 }}>
-            <UserCard user={details} />
+          <div
+            key={details._id}
+            style={{
+              gridRow: 1,
+              gridColumn: 1,
+              zIndex: feed.length - index,
+            }}
+          >
+            <UserCard user={details} isTopCard={index === 0} />
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="flex flex-col items-center justify-center h-[80vh] text-center">
+          <div className="text-6xl mb-4">💔</div>
+          <div className="text-2xl font-bold text-gray-600 mb-2">
+            No more profiles!
+          </div>
+          <div className="text-gray-500">Check back later for new matches</div>
+          <button
+            onClick={fetchFeed}
+            className="mt-4 bg-pink-500 hover:bg-pink-600 cursor-pointer text-white px-6 py-2 rounded-full transition-colors"
+          >
+            Refresh Feed
+          </button>
+        </div>
+      )}
     </div>
   );
 };

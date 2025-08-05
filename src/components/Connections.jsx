@@ -5,7 +5,14 @@ import { setUserConnections } from "../redux/slices/userConnections";
 import { BASE_URL } from "../utils/constants";
 
 const Connections = () => {
-  const userConnections = useSelector((store) => store.userConnections);
+  const userConnections = useSelector(
+    (store) => store.userConnections.connections
+  );
+  const connectionsNeedRefresh = useSelector(
+    (state) => state.userConnections.connectionsNeedRefresh
+  );
+
+  console.log("connectionsNeed", connectionsNeedRefresh);
   const dispatch = useDispatch();
   const fetchUserConnections = async () => {
     try {
@@ -21,13 +28,15 @@ const Connections = () => {
     }
   };
 
-  console.log("userConnections", userConnections);
-
   useEffect(() => {
     if (userConnections.length === 0) {
       fetchUserConnections();
     }
   }, []);
+
+  useEffect(() => {
+    fetchUserConnections();
+  }, [connectionsNeedRefresh]);
   return (
     <div>
       <div className=" py-4">
@@ -35,14 +44,14 @@ const Connections = () => {
           Connections
         </p>
 
-        {userConnections.length !== 0 ? (
+        {userConnections && userConnections.length !== 0 ? (
           <div className="space-y-4 flex flex-col w-full  items-center ">
             {userConnections.map((connection, index) => {
               const { firstName, lastName, photoUrl, about } = connection;
               return (
-                <div key={index} className="w-1/2">
+                <div key={index} className="md:w-1/2 w-full md:px-0 px-4">
                   <div className="card flex px-2 py-2  items-center card-side bg-base-300 shadow-md">
-                    <div className="w-20 h-20  rounded-full overflow-hidden">
+                    <div className="md:w-20 md:h-20 w-12 h-12  rounded-full overflow-hidden">
                       <img
                         src={photoUrl}
                         alt={`${firstName}_Photo`}
@@ -50,10 +59,10 @@ const Connections = () => {
                       />
                     </div>
                     <div className="card-body">
-                      <h2 className="card-title capitalize">
+                      <h2 className="card-title text-sm ms:text-md capitalize">
                         {firstName} {lastName}
                       </h2>
-                      <p>{about}</p>
+                      <p className="text-xs md:text:sm">{about}</p>
                     </div>
                   </div>
                 </div>
@@ -61,7 +70,10 @@ const Connections = () => {
             })}
           </div>
         ) : (
-          "No connections!!"
+          <p className="text-md text-red-500 text-center">
+            {" "}
+            No Connections Yet!!
+          </p>
         )}
       </div>
     </div>
