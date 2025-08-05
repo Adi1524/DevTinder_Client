@@ -30,7 +30,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="grid place-items-center">
+    <div className="grid h-full">
       {feed && feed.length !== 0 ? (
         feed.map((details, index) => (
           <div

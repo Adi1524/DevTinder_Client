@@ -57,7 +57,7 @@ const UserCard = ({ user }) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         width: "100%",
-        height: "80vh",
+        height: "88vh",
       }}
       exit={{ opacity: 0, x: 600, transition: { duration: 0.3 } }}
       dragConstraints={{ left: 0, right: 0 }}
